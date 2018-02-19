@@ -1,0 +1,40 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="ask"
+        android:entries="@array/download_behavior_titles"
+        android:entryValues="@array/download_behavior_values"
+        android:key="download_behavior"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="Способ загрузки"/>
+
+    <PreferenceCategory android:title="Настройка сервера">
+        <ListPreference
+            android:defaultValue="uTorrent"
+            android:entries="@array/client_type_titles"
+            android:entryValues="@array/client_type_values"
+            android:key="torrent_client_type"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="%s"
+            android:title="Торрент клиент"/>
+        <ru.ratanov.kinoman.model.utils.EditTextPreference
+            android:inputType="numberDecimal"
+            android:digits="0123456789."
+            android:key="server"
+            android:title="IP адрес"/>
+        <ru.ratanov.kinoman.model.utils.EditTextPreference
+            android:inputType="number"
+            android:key="port"
+            android:title="Порт"/>
+        <ru.ratanov.kinoman.model.utils.EditTextPreference
+            android:key="login"
+            android:title="Логин"/>
+        <EditTextPreference
+            android:inputType="textPassword"
+            android:key="password"
+            android:title="Пароль"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

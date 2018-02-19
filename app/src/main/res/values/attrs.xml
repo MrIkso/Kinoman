@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2015-2016 Farbod Salamat-Zadeh
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<resources>
+
+    <declare-styleable name="LabelledSpinner" >
+
+        <!-- The text that is displayed on the floating label -->
+        <attr name="labelText" format="string" />
+        <!-- Specifies the color of the label and the bottom line -->
+        <attr name="widgetColor" format="color" />
+
+        <!-- Sets the array to be displayed on the Spinner -->
+        <attr name="spinnerEntries" format="reference" />
+
+        <!-- Controls whether an error is shown if the first item (which
+        would be a prompt) is selected and has not been changed -->
+        <attr name="defaultErrorEnabled" format="boolean" />
+
+    </declare-styleable>
+
+
+    <declare-styleable name="FlippableView" >
+
+        <!-- The views for the front and back of the FlippableView -->
+        <attr name="viewFront" format="reference" />
+        <attr name="viewBack" format="reference" />
+
+    </declare-styleable>
+
+</resources>

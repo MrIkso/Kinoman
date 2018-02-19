@@ -1,0 +1,45 @@
+<resources>
+
+    <!-- Base application theme for Main Activity. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Base application theme for other Activities -->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Styles for widgets -->
+    <style name="DownloadButton" parent="AppTheme.Base">
+        <item name="colorButtonNormal">@color/download_normal</item>
+        <item name="colorControlHighlight">@color/download_pressed</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TrailerButton" parent="AppTheme.Base">
+        <item name="colorButtonNormal">@color/trailer_normal</item>
+        <item name="colorControlHighlight">@color/trailer_pressed</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="MoreButton" parent="AppTheme.Base">
+        <item name="colorControlHighlight">@color/download_normal</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="MySearchView">
+        <item name="search_elevation">5dp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+</resources>
