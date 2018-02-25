@@ -241,6 +241,9 @@ public class FilmParser {
                         film.setRating(element.text().substring(9));
                         film.setKpUrl(element.select("a").attr("href"));
                     }
+                    if (element.text().contains("Трейлер")) {
+                        film.setTrailerUrl(element.select("a").attr("href"));
+                    }
                 }
 
                 film.setDescription(doc.select("div.bx1.justify").select("p").text());

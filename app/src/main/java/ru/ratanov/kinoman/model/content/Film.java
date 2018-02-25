@@ -1,13 +1,11 @@
 package ru.ratanov.kinoman.model.content;
 
-import io.realm.RealmObject;
-import io.realm.annotations.Required;
 
 /**
  * Created by ACER on 08.12.2016.
  */
 
-public class Film extends RealmObject {
+public class Film {
 
     private String link;
     private String id;

@@ -1,12 +1,11 @@
 package ru.ratanov.kinoman.model.content;
 
-import io.realm.RealmObject;
 
 /**
  * Created by ACER on 02.09.2017.
  */
 
-public class FavFilm extends RealmObject {
+public class FavFilm {
 
     private String id;
 

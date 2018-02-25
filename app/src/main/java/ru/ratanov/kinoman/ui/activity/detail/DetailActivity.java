@@ -22,8 +22,6 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
-import io.realm.RealmResults;
 import ru.ratanov.kinoman.R;
 import ru.ratanov.kinoman.model.content.Film;
 import ru.ratanov.kinoman.presentation.view.detail.DetailView;
@@ -57,13 +55,11 @@ public class DetailActivity extends BaseActivity implements DetailView {
     @BindView(R.id.detail_date) TextView date;
     @BindView(R.id.detail_seeds) TextView seeds;
     @BindView(R.id.detail_description) TextView description;
-    @BindView(R.id.favorite_button) ImageView favoriteButton;
 
     public static final String TAG = "DetailActivity";
     public static final String EXTRA_URL = "extra_url";
 
     private Film mFilm;
-    private Realm mRealm;
 
     private String mUrl;
     private String kpUrl;
@@ -86,8 +82,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
         setupToolBar();
         setupSearchView();
-
-        mRealm = Realm.getDefaultInstance();
 
         mUrl = getIntent().getStringExtra(EXTRA_URL);
         Log.d(TAG, "onCreate: " + mUrl);
@@ -140,14 +134,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
             }
         });
 
-        RealmResults<Film> favoriteFilms = mRealm.where(Film.class).equalTo("id", mFilm.getId()).findAll();
-        if (favoriteFilms != null && favoriteFilms.size() > 0) {
-            mFilm.setFavorite(true);
-        }
-
-
-        favoriteButton.setImageResource(film.isFavorite() ? R.drawable.ic_star_solid_24dp : R.drawable.ic_star_border_24dp);
-
         mainLayout.setVisibility(View.VISIBLE);
 
         String sameLink = Uri.parse(film.getSameLink())
@@ -177,8 +163,13 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     @OnClick(R.id.detail_trailer_button)
     public void loadTrailer(View view) {
-        mDetailPresenter.loadTrailer(kpUrl);
+//        mDetailPresenter.loadTrailer(kpUrl);
 //        showTrailer("https://s77e.storage.yandex.net/video-kinopoisk-trailers/23/2/data-0.1:4782377292:41984037?ts=0005647ebbbfcc8c&sign=0bcd128b9198cf47725c6b5694c744fdb88497a9cecc08c667c7d523b969c55b");
+        if (mFilm.getTrailerUrl() != null) {
+            Intent playTrailer = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mFilm.getTrailerUrl()));
+            startActivity(playTrailer);
+        }
     }
 
     @Override
@@ -193,25 +184,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
     }
 
     // Favorite
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @OnClick(R.id.favorite_button)
-    public void onFavoriteClick() {
-        if (mFilm.isFavorite()) {
-            mFilm.setFavorite(false);
-            favoriteButton.setImageResource(R.drawable.ic_star_border_24dp);
-            mRealm.beginTransaction();
-            Film filmToDelete = mRealm.where(Film.class).equalTo("id", mFilm.getId()).findFirst();
-            filmToDelete.deleteFromRealm();
-            mRealm.commitTransaction();
-        } else {
-            mFilm.setFavorite(true);
-            favoriteButton.setImageResource(R.drawable.ic_star_solid_24dp);
-            Toast.makeText(this, "Добавлено в избранное", Toast.LENGTH_SHORT).show();
-            mRealm.beginTransaction();
-            mRealm.insert(mFilm);
-            mRealm.commitTransaction();
-        }
-    }
+    // ...
+
 
     // Download
 
@@ -262,6 +236,5 @@ public class DetailActivity extends BaseActivity implements DetailView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRealm.close();
     }
 }

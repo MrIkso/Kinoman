@@ -49,7 +49,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ru.ratanov.kinoman.ui.activity.main.MainActivity"/>
         </activity>
-        <activity android:name=".ui.activity.fav.FavActivity"/>
     </application>
 
 </manifest>

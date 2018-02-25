@@ -10,8 +10,4 @@
     <item android:id="@+id/action_settings"
           android:title="@string/settings"
           app:showAsAction="never"/>
-    <item android:id="@+id/action_fav"
-          android:title="@string/fav"
-          android:icon="@drawable/ic_star_solid_24dp"
-          app:showAsAction="never"/>
 </menu>
