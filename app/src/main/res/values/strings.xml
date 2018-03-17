@@ -30,6 +30,16 @@
         <item>QBittorrent</item>
     </string-array>
 
+    <string-array name="search_type_titles">
+        <item>Умный поиск</item>
+        <item>Стандартный поиск</item>
+    </string-array>
+
+    <string-array name="search_type_values">
+        <item>i_search</item>
+        <item>regular_search</item>
+    </string-array>
+
     <string-array name="download_behavior_titles">
         <item>Отправить на сервер</item>
         <item>Скачать на устройство</item>
@@ -126,5 +136,10 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="action_filter">Фильтр</string>
     <string name="fav">Избранное</string>
+    <string name="pref_header_search">Настройки поиска</string>
+    <string name="i_search_title">Умный поиск</string>
+    <string name="regular_search_title">Стандартный поиск</string>
+    <string name="i_search_description">Из множества однотипных раздач (разные форматы, сезоны и т.д. выдается только одна - самая популярная, по количеству сидов.\nБыстрый поиск</string>
+    <string name="regular_search_description">Стандартная поисковая выдача как на сайте. Все форматы и сезоны.\nБолее медленный поиск.</string>
 
 </resources>

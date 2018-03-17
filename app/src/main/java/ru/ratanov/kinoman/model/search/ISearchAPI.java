@@ -1,4 +1,4 @@
-package ru.ratanov.kinoman.model.parsers;
+package ru.ratanov.kinoman.model.search;
 
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,24 +17,25 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import ru.ratanov.kinoman.model.content.SearchItem;
+import ru.ratanov.kinoman.model.content.ISearchItem;
+import ru.ratanov.kinoman.model.parsers.Cookies;
 import ru.ratanov.kinoman.presentation.presenter.search.SearchPresenter;
 
 import static ru.ratanov.kinoman.model.base.Constants.BASE_URL;
 import static ru.ratanov.kinoman.model.base.Constants.BASE_URL_SEARCH;
 
-public class SearchAPI {
-    public static final String TAG = "SearchAPI";
+public class ISearchAPI {
+    public static final String TAG = "ISearchAPI";
     public static final String KEY_YEAR = "Год выпуска";
     public static final String KEY_GENRE = "Жанр";
     public static final String KEY_PRODUCTION = "Выпущено";
 
     private SearchPresenter mSearchPresenter;
-    private List<SearchItem> mSearchItems = new ArrayList<>();
+    private List<ISearchItem> mISearchItems = new ArrayList<>();
 
     private HashMap<String, String> mHashMap = new HashMap<>();
 
-    public SearchAPI(SearchPresenter searchPresenter) {
+    public ISearchAPI(SearchPresenter searchPresenter) {
         mSearchPresenter = searchPresenter;
     }
 
@@ -68,13 +69,13 @@ public class SearchAPI {
                     String category = element.select("img").attr("src").split("/")[5].replace(".gif", "");
                     String title;
                     if (category.equals("45") || category.equals("46")) {
-                        title = SearchItem.getTitleWithoutSeries(fullTitle);
+                        title = ISearchItem.getTitleWithoutSeries(fullTitle);
                     } else {
                         title = fullTitle;
                     }
                     String link = BASE_URL + element.select("td.nam").select("a").attr("href");
 
-                    if (SearchItem.isValid(category) && !linksMap.containsKey(title)) {
+                    if (ISearchItem.isValid(category) && !linksMap.containsKey(title)) {
                         linksMap.put(title, link);
                     }
                 }
@@ -91,7 +92,8 @@ public class SearchAPI {
                     elements = doc.select("a[href]");
 
                     for (Element element : elements) {
-                        if (element.attr("href").contains("kinopoisk")) {
+                        if (element.text().contains("Кинопоиск")) {
+                            Log.i(TAG, "href: " + element.text() + "<>" + element.text().length());
                             rating = element.text().substring(9);
                             break;
                         }
@@ -106,7 +108,7 @@ public class SearchAPI {
                         country = production;
                     }
 
-                    SearchItem item = new SearchItem();
+                    ISearchItem item = new ISearchItem();
 
                     item.setTitle(pair.getKey());
                     item.setLink(pair.getValue());
@@ -116,7 +118,7 @@ public class SearchAPI {
                     item.setRating(rating);
                     item.setCountry(country);
 
-                    mSearchItems.add(item);
+                    mISearchItems.add(item);
                 }
 
             } catch (IOException e) {
@@ -127,8 +129,8 @@ public class SearchAPI {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Log.d(TAG, "onPostExecute: " + mSearchItems.size());
-            mSearchPresenter.updatePage(mSearchItems);
+            Log.d(TAG, "onPostExecute: " + mISearchItems.size());
+            mSearchPresenter.updatePageI(mISearchItems);
         }
     }
 

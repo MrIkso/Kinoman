@@ -5,12 +5,17 @@
     <header
         android:fragment="ru.ratanov.kinoman.ui.activity.pref.SettingsActivity$InterfacePreferenceFragment"
         android:icon="@drawable/ic_palette_black_24dp"
-        android:title="@string/pref_header_general"/>
+        android:title="@string/pref_header_general" />
+
+    <header
+        android:fragment="ru.ratanov.kinoman.ui.activity.pref.SettingsActivity$SearchPreferenceFragment"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/pref_header_search" />
 
     <header
         android:fragment="ru.ratanov.kinoman.ui.activity.pref.SettingsActivity$ServerPreferenceFragment"
         android:icon="@drawable/ic_computer_black_24dp"
-        android:title="@string/pref_header_server"/>
+        android:title="@string/pref_header_server" />
 
     <!--<header
         android:fragment="ru.ratanov.kinoman.ui.activity.pref.SettingsActivity$DataSyncPreferenceFragment"

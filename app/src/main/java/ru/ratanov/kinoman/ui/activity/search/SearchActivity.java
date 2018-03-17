@@ -17,7 +17,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.ratanov.kinoman.R;
-import ru.ratanov.kinoman.model.adapters.MySearchAdapter;
+import ru.ratanov.kinoman.model.adapters.ISearchAdapter;
+import ru.ratanov.kinoman.model.adapters.SearchAdapter;
+import ru.ratanov.kinoman.model.content.ISearchItem;
 import ru.ratanov.kinoman.model.content.SearchItem;
 import ru.ratanov.kinoman.presentation.presenter.search.SearchPresenter;
 import ru.ratanov.kinoman.presentation.view.search.SearchView;
@@ -72,7 +74,7 @@ public class SearchActivity extends BaseActivity implements SearchView {
     }
 
     private void doSearch(String query) {
-        mSearchPresenter.doSearch(query);
+        mSearchPresenter.doSearch(this, query);
     }
 
     @Override
@@ -88,11 +90,20 @@ public class SearchActivity extends BaseActivity implements SearchView {
     }
 
     @Override
+    public void updatePageI(List<ISearchItem> items) {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(String.format(Locale.ROOT,"%s: %d", "Найдено", items.size()));
+
+        ISearchAdapter adapter = new ISearchAdapter(this, items);
+        mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
     public void updatePage(List<SearchItem> items) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(String.format(Locale.ROOT,"%s: %d", "Найдено", items.size()));
 
-        MySearchAdapter adapter = new MySearchAdapter(this, items);
+        SearchAdapter adapter = new SearchAdapter(this, items);
         mRecyclerView.setAdapter(adapter);
     }
 
