@@ -19,3 +19,7 @@
 Скачать
 -----------------------------------
 Скачать и обсудить приложение на форуме [4PDA](http://4pda.ru/forum/index.php?showtopic=791262)
+
+Android TV
+-----------------------------------
+Версия для Android TV - [здесь](https://github.com/ratanoff/KinomanTV)
