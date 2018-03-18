@@ -16,6 +16,7 @@ import java.util.List;
 
 import ru.ratanov.kinoman.model.content.SearchItem;
 import ru.ratanov.kinoman.model.parsers.Cookies;
+import ru.ratanov.kinoman.model.utils.QueryPreferences;
 import ru.ratanov.kinoman.presentation.presenter.search.SearchPresenter;
 
 import static ru.ratanov.kinoman.model.base.Constants.BASE_URL;
@@ -42,13 +43,17 @@ public class SearchAPI {
         @Override
         protected Void doInBackground(String... strings) {
 
+            String filter = QueryPreferences.getStoredQuery(mSearchPresenter.getContext(), "search_filter_type");
+            String sort = QueryPreferences.getStoredQuery(mSearchPresenter.getContext(), "search_sort_direction");
+
             String query = strings[0];
             int pages = 0;
 
             String url = Uri.parse(BASE_URL_SEARCH)
                     .buildUpon()
                     .appendQueryParameter("s", query)
-                    .appendQueryParameter("t", "1")
+                    .appendQueryParameter("t", filter)
+                    .appendQueryParameter("f", sort)
                     .build()
                     .toString();
 
@@ -75,7 +80,8 @@ public class SearchAPI {
                     String pageUrl = Uri.parse(BASE_URL_SEARCH)
                             .buildUpon()
                             .appendQueryParameter("s", query)
-                            .appendQueryParameter("t", "1")
+                            .appendQueryParameter("t", filter)
+                            .appendQueryParameter("f", sort)
                             .appendQueryParameter("page", String.valueOf(i))
                             .build()
                             .toString();

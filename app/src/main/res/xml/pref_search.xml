@@ -10,6 +10,26 @@
         android:summary="%s"
         android:title="Тип поиска" />
 
+    <ListPreference
+        android:title="Сортировать по:"
+        android:entries="@array/search_filter_type_titles"
+        android:entryValues="@array/search_filter_type_values"
+        android:key="search_filter_type"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:summary="%s"
+        android:defaultValue="1" />
+
+    <ListPreference
+        android:title="Направление сортировки"
+        android:entries="@array/search_filter_sort_titles"
+        android:entryValues="@array/search_filter_sort_values"
+        android:key="search_sort_direction"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:summary="%s"
+        android:defaultValue="0" />
+
     <Preference
         android:enabled="true"
         android:key="i_search_type_description"

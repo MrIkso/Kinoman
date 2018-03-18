@@ -16,10 +16,18 @@ import ru.ratanov.kinoman.presentation.view.search.SearchView;
 
 @InjectViewState
 public class SearchPresenter extends MvpPresenter<SearchView> {
+
+    private Context mContext;
+
+    public Context getContext() {
+        return mContext;
+    }
+
     public void doSearch(Context context, String query) {
         getViewState().showProgress();
-
+        mContext = context;
         String searchType = QueryPreferences.getStoredQuery(context, "search_type");
+
         switch (searchType) {
             case "regular_search":
                 SearchAPI searchAPI = new SearchAPI(this);

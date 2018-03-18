@@ -40,6 +40,30 @@
         <item>regular_search</item>
     </string-array>
 
+    <string-array name="search_filter_type_titles">
+        <item>По дате</item>
+        <item>По сидам</item>
+        <item>По размеру</item>
+        <item>По количеству скачиваний</item>
+    </string-array>
+
+    <string-array name="search_filter_type_values">
+        <item>0</item>
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="search_filter_sort_titles">
+        <item>По убыванию</item>
+        <item>По возрастанию</item>
+    </string-array>
+
+    <string-array name="search_filter_sort_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
     <string-array name="download_behavior_titles">
         <item>Отправить на сервер</item>
         <item>Скачать на устройство</item>
