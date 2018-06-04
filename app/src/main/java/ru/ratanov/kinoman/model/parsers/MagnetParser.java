@@ -59,12 +59,15 @@ public class MagnetParser {
         @Override
         protected Void doInBackground(String... strings) {
             Log.i(TAG, "doInBackground: " + strings[0]);
-            String mMagnetUrl = strings[0].replace("https://kinozal-tv.appspot.com/details.php",
-                    "https://s-kinozal-tv.appspot.com/getmagnet?");
+            String mMagnetUrl = strings[0].replace("details.php?",
+                    "get_srv_details.php?action=2&");
             Log.i(TAG, "doInBackground: " + mMagnetUrl);
             try {
-                Document doc = Jsoup.connect(mMagnetUrl).get();
-                mMagnetLink = doc.select("a").first().attr("href");
+                Document doc = Jsoup.connect(mMagnetUrl)
+                        .cookies(Cookies.getCookies())
+                        .get();
+                mMagnetLink = doc.select("ul").select("li").first().text().replace("Инфо хеш: ",
+                        "magnet:?xt=urn:btih:");
                 Log.i(TAG, "doInBackground: MAGNET = " + mMagnetLink);
 
 
