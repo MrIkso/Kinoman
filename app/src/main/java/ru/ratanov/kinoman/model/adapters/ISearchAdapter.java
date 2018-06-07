@@ -29,7 +29,7 @@ public class ISearchAdapter extends RecyclerView.Adapter<ISearchAdapter.ISearchV
 
     @Override
     public ISearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.search_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.i_search_result_item, parent, false);
         return new ISearchViewHolder(view);
     }
 

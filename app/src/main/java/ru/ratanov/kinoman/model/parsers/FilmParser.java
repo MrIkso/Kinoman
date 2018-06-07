@@ -137,7 +137,15 @@ public class FilmParser {
                     for (Element entry : elements) {
                         String link = BASE_URL + entry.select("a").attr("href");
                         String title = entry.select("a").attr("title");
-                        String pictureUrl = entry.select("a").select("img").attr("src");
+                        String tmp = entry.select("a").select("img").attr("src");
+
+                        String pictureUrl = null;
+
+                        if (tmp.contains("poster")) {
+                            pictureUrl = "https://kinozal.guru" + tmp;
+                        } else {
+                            pictureUrl = tmp;
+                        }
 
                         TopItem item = new TopItem();
                         item.setLink(link);
@@ -214,7 +222,17 @@ public class FilmParser {
                 film.setLink(link);
                 film.setId(link.substring(link.indexOf("=") + 1));
                 film.setTitle(doc.select("h1").text());
-                film.setPosterUrl(doc.select("img.p200").attr("src"));
+
+                String tmp = doc.select("img.p200").attr("src");
+                String pictureUrl = null;
+
+                if (tmp.contains("poster")) {
+                    pictureUrl = "https://kinozal.guru" + tmp;
+                } else {
+                    pictureUrl = tmp;
+                }
+
+                film.setPosterUrl(pictureUrl);
                 film.setQuality(getPair(KEY_QUALITY));
                 film.setVideo(getPair(KEY_VIDEO));
                 film.setAudio(getPair(KEY_AUDIO));

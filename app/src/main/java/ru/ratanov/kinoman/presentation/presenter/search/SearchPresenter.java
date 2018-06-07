@@ -1,6 +1,7 @@
 package ru.ratanov.kinoman.presentation.presenter.search;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -17,6 +18,8 @@ import ru.ratanov.kinoman.presentation.view.search.SearchView;
 @InjectViewState
 public class SearchPresenter extends MvpPresenter<SearchView> {
 
+    public static final String TAG = SearchPresenter.class.getSimpleName();
+
     private Context mContext;
 
     public Context getContext() {
@@ -26,7 +29,7 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
     public void doSearch(Context context, String query) {
         getViewState().showProgress();
         mContext = context;
-        String searchType = QueryPreferences.getStoredQuery(context, "search_type");
+        String searchType = QueryPreferences.getStoredQuery(context, "search_type", "i_search");
 
         switch (searchType) {
             case "regular_search":

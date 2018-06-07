@@ -66,7 +66,7 @@ public class ISearchAPI {
 
                 for (Element element : elements) {
                     String fullTitle = element.select("td.nam").select("a").text().split(" / ")[0];
-                    String category = element.select("img").attr("src").split("/")[5].replace(".gif", "");
+                    String category = element.select("td.bt").select("img").attr("src").split("/")[3].replace(".gif", "");
                     String title;
                     if (category.equals("45") || category.equals("46")) {
                         title = ISearchItem.getTitleWithoutSeries(fullTitle);
@@ -112,7 +112,18 @@ public class ISearchAPI {
 
                     item.setTitle(pair.getKey());
                     item.setLink(pair.getValue());
-                    item.setPosterUrl(doc.select("img.p200").attr("src"));
+
+                    String tmp = doc.select("img.p200").attr("src");
+                    String pictureUrl = null;
+
+                    if (tmp.contains("poster")) {
+                        pictureUrl = "https://kinozal.guru" + tmp;
+                    } else {
+                        pictureUrl = tmp;
+                    }
+
+                    item.setPosterUrl(pictureUrl);
+
                     item.setYear(mHashMap.get(KEY_YEAR));
                     item.setGenre(mHashMap.get(KEY_GENRE));
                     item.setRating(rating);
