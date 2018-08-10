@@ -163,13 +163,13 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     @OnClick(R.id.detail_trailer_button)
     public void loadTrailer(View view) {
-//        mDetailPresenter.loadTrailer(kpUrl);
+        mDetailPresenter.loadTrailer(kpUrl);
 //        showTrailer("https://s77e.storage.yandex.net/video-kinopoisk-trailers/23/2/data-0.1:4782377292:41984037?ts=0005647ebbbfcc8c&sign=0bcd128b9198cf47725c6b5694c744fdb88497a9cecc08c667c7d523b969c55b");
-        if (mFilm.getTrailerUrl() != null) {
-            Intent playTrailer = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(mFilm.getTrailerUrl()));
-            startActivity(playTrailer);
-        }
+//        if (mFilm.getTrailerUrl() != null) {
+//            Intent playTrailer = new Intent(Intent.ACTION_VIEW,
+//                    Uri.parse(mFilm.getTrailerUrl()));
+//            startActivity(playTrailer);
+//        }
     }
 
     @Override
