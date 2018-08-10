@@ -28,7 +28,6 @@ import ru.ratanov.kinoman.presentation.presenter.main.TopPresenter;
 
 import static ru.ratanov.kinoman.model.base.Constants.BASE_URL;
 import static ru.ratanov.kinoman.model.base.Constants.BASE_URL_TOP;
-import static ru.ratanov.kinoman.model.base.Constants.KINOPOISK_URL;
 
 /**
  * Created by ACER on 27.11.2016.
@@ -301,12 +300,18 @@ public class FilmParser {
 
     private class GetTrailerUrl extends AsyncTask<String, Void, String> {
 
+        private String USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36";
+
         @Override
         protected String doInBackground(String... strings) {
             try {
+                String url = strings[0];
 
-                Connection.Response response = Jsoup.connect(strings[0]).followRedirects(true).execute();
-                Log.i(TAG, "Response: " + response.url());
+                Connection.Response response = Jsoup
+                        .connect(url)
+                        .userAgent(USER_AGENT)
+                        .followRedirects(true).execute();
+
                 String mainUrl = response.url().toString();
 
                 if (mainUrl.contains("showcaptcha")) {
@@ -314,37 +319,25 @@ public class FilmParser {
                     mainUrl = mainUrl.replace("%3A", ":");
                 }
 
-                Document doc = Jsoup.connect(mainUrl).get();
+                Document doc = Jsoup
+                        .connect(mainUrl)
+                        .userAgent(USER_AGENT)
+                        .get();
 
-                Elements frameLink = doc.select("meta[property=og:video:url]");
+                Elements elements = doc.select("meta[name=twitter:player:stream]");
+                String trailerUrl = elements.attr("content");
 
-                Log.i(TAG, "Meta: " + frameLink.size());
-
-                //
-                String pageUrl = strings[0] + "/video/type/1";
-                Log.i(TAG, "doInBackground: pageUrl " + pageUrl);
-                Document document = Jsoup.connect(pageUrl).get();
-
-                Elements videos = document.select("a.continue");
-                Log.i(TAG, "doInBackground: found videos " + videos.size() );
-
-                for (Element video : videos) {
-                    Log.i(TAG, "doInBackground: v " + video.attr("href"));
+                if (trailerUrl != null) {
+                    Log.d(TAG, trailerUrl);
+                } else {
+                    Log.d(TAG, "Trailer = NULL");
                 }
-
-
-                for (Element video : videos) {
-                    if (video.text().contains("Высокое качество")) {
-                        int start = video.attr("href").indexOf("http");
-                        return video.attr("href").substring(start);
-                    }
-                }
+                return trailerUrl;
 
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
             }
-            return null;
         }
 
         @Override
