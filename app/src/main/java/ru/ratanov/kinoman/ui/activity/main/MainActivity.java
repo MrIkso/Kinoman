@@ -1,5 +1,8 @@
 package ru.ratanov.kinoman.ui.activity.main;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +26,7 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.ratanov.kinoman.R;
+import ru.ratanov.kinoman.managers.firebase.ForceUpdateChecker;
 import ru.ratanov.kinoman.model.query.FilterParams;
 import ru.ratanov.kinoman.model.utils.QueryPreferences;
 import ru.ratanov.kinoman.model.views.LabelledSpinner;
@@ -31,7 +36,8 @@ import ru.ratanov.kinoman.ui.fragment.main.TopFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity
+    implements ForceUpdateChecker.OnUpdateNeededListener{
 
     public static final String TAG = "MainActivity";
     private static TabLayout mTabs;
@@ -55,6 +61,40 @@ public class MainActivity extends BaseActivity {
         // Init Realm
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ForceUpdateChecker.with(this).onUpdateNeeded(this).check();
+    }
+
+    @Override
+    public void onUpdateNeeded(String version, String releaseNotes, final String updateUrl) {
+        Dialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Доступно обновление (" + version + ")")
+                .setMessage("Пожалуйста, обновите приложение для продолжения работы\n" + releaseNotes)
+                .setPositiveButton("Обновить", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        redirectStore(updateUrl);
+                    }
+                })
+                .setNegativeButton("Нет, спасибо", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setCancelable(false)
+                .create();
+
+        dialog.show();
+    }
+
+    private void redirectStore(String updateUrl) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {

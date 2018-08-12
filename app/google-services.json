@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "607612785460",
+    "firebase_url": "https://kinoman-4f96a.firebaseio.com",
+    "project_id": "kinoman-4f96a",
+    "storage_bucket": "kinoman-4f96a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607612785460:android:9aa3d4b7f705c43e",
+        "android_client_info": {
+          "package_name": "ru.ratanov.kinoman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607612785460-r27kde51npvdvb38drkv3urfn63b42hd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.ratanov.kinoman",
+            "certificate_hash": "de5211b34a034b1c1e7dda422ca88cf80c2f37f3"
+          }
+        },
+        {
+          "client_id": "607612785460-mb2qeqfo820nhj7ta69diffj8p6lujvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiSlrYooPYdd06OW6Nr6xBxtDO9rsrJRk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607612785460-mb2qeqfo820nhj7ta69diffj8p6lujvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
