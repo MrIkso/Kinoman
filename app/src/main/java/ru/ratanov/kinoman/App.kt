@@ -2,6 +2,7 @@ package ru.ratanov.kinoman
 
 import android.app.Application
 import android.util.Log
+import com.downloader.PRDownloader
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import ru.ratanov.kinoman.managers.firebase.FirebaseManager
 import ru.ratanov.kinoman.managers.firebase.ForceUpdateChecker
@@ -11,9 +12,19 @@ class App : Application() {
 
     private val TAG = App::class.java.simpleName
 
+    companion object {
+        private var instance: Application? = null
+        fun instance() = instance!!
+    }
+
+
+
     override fun onCreate() {
         super.onCreate()
+        instance = this
+
 //        FirebaseManager.init()
+        PRDownloader.initialize(this)
 
         val firebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
 

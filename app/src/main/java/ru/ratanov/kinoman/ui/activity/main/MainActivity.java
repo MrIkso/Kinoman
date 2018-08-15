@@ -27,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.ratanov.kinoman.R;
 import ru.ratanov.kinoman.managers.firebase.ForceUpdateChecker;
+import ru.ratanov.kinoman.managers.firebase.UpdateManager;
 import ru.ratanov.kinoman.model.query.FilterParams;
 import ru.ratanov.kinoman.model.utils.QueryPreferences;
 import ru.ratanov.kinoman.model.views.LabelledSpinner;
@@ -71,11 +72,12 @@ public class MainActivity extends BaseActivity
     public void onUpdateNeeded(String version, String releaseNotes, final String updateUrl) {
         Dialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Доступно обновление (" + version + ")")
-                .setMessage("Пожалуйста, обновите приложение для продолжения работы\n" + releaseNotes)
+                .setMessage("Пожалуйста, обновите приложение для продолжения работы\n\n" + releaseNotes)
                 .setPositiveButton("Обновить", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        redirectStore(updateUrl);
+//                        redirectStore(updateUrl);
+                        UpdateManager.INSTANCE.update(updateUrl);
                     }
                 })
                 .setNegativeButton("Нет, спасибо", new DialogInterface.OnClickListener() {
