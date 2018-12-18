@@ -314,10 +314,10 @@ public class FilmParser {
 
                 String mainUrl = response.url().toString();
 
-                if (mainUrl.contains("showcaptcha")) {
+                /*if (mainUrl.contains("showcaptcha")) {
                     mainUrl = mainUrl.replace("https://www.kinopoisk.ru/showcaptcha?cc=1&repath=", "");
                     mainUrl = mainUrl.replace("%3A", ":");
-                }
+                }*/
 
                 Document doc = Jsoup
                         .connect(mainUrl)
@@ -326,6 +326,25 @@ public class FilmParser {
 
                 Elements elements = doc.select("meta[name=twitter:player:stream]");
                 String trailerUrl = elements.attr("content");
+
+                doc = Jsoup
+                        .connect(trailerUrl)
+                        .userAgent(USER_AGENT)
+                        .get();
+
+                String iframeUrl = doc.select("iframe").attr("src");
+
+                doc = Jsoup
+                        .connect(iframeUrl)
+                        .userAgent(USER_AGENT)
+                        .get();
+
+                Elements scripts = doc.select("script");
+
+                System.out.println(scripts);
+
+
+
 
                 if (trailerUrl != null) {
                     Log.d(TAG, trailerUrl);
