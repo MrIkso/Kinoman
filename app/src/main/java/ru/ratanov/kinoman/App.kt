@@ -43,6 +43,8 @@ class App : Application() {
                         firebaseRemoteConfig.activateFetched()
                     }
                 }
+
+
     }
 
 }

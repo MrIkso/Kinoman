@@ -70,32 +70,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onUpdateNeeded(String version, String releaseNotes, final String updateUrl) {
-        Dialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Доступно обновление (" + version + ")")
-                .setMessage("Пожалуйста, обновите приложение для продолжения работы\n\n" + releaseNotes)
-                .setPositiveButton("Обновить", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        redirectStore(updateUrl);
-                        UpdateManager.INSTANCE.update(updateUrl);
-                    }
-                })
-                .setNegativeButton("Нет, спасибо", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                })
-                .setCancelable(false)
-                .create();
-
-        dialog.show();
-    }
-
-    private void redirectStore(String updateUrl) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        UpdateManager.INSTANCE.showUpdateDialog(this, version, releaseNotes, updateUrl);
     }
 
     // Add Fragments to Tabs
