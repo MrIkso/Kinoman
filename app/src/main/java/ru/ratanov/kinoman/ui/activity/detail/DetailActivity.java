@@ -39,22 +39,38 @@ public class DetailActivity extends BaseActivity implements DetailView {
     @InjectPresenter
     DetailPresenter mDetailPresenter;
 
-    @BindView(R.id.detail_layout_main) ConstraintLayout mainLayout;
-    @BindView(R.id.detail_title) TextView title;
-    @BindView(R.id.detail_poster) ImageView poster;
-    @BindView(R.id.detail_quality) TextView quality;
-    @BindView(R.id.detail_video) TextView video;
-    @BindView(R.id.detail_audio) TextView audio;
-    @BindView(R.id.detail_size) TextView size;
-    @BindView(R.id.detail_length) TextView length;
-    @BindView(R.id.detail_translate) TextView translate;
-    @BindView(R.id.detail_year) TextView year;
-    @BindView(R.id.detail_genre) TextView genre;
-    @BindView(R.id.detail_rating) TextView rating;
-    @BindView(R.id.detail_date_title) TextView dateTitle;
-    @BindView(R.id.detail_date) TextView date;
-    @BindView(R.id.detail_seeds) TextView seeds;
-    @BindView(R.id.detail_description) TextView description;
+    @BindView(R.id.detail_layout_main)
+    ConstraintLayout mainLayout;
+    @BindView(R.id.detail_title)
+    TextView title;
+    @BindView(R.id.detail_poster)
+    ImageView poster;
+    @BindView(R.id.detail_quality)
+    TextView quality;
+    @BindView(R.id.detail_video)
+    TextView video;
+    @BindView(R.id.detail_audio)
+    TextView audio;
+    @BindView(R.id.detail_size)
+    TextView size;
+    @BindView(R.id.detail_length)
+    TextView length;
+    @BindView(R.id.detail_translate)
+    TextView translate;
+    @BindView(R.id.detail_year)
+    TextView year;
+    @BindView(R.id.detail_genre)
+    TextView genre;
+    @BindView(R.id.detail_rating)
+    TextView rating;
+    @BindView(R.id.detail_date_title)
+    TextView dateTitle;
+    @BindView(R.id.detail_date)
+    TextView date;
+    @BindView(R.id.detail_seeds)
+    TextView seeds;
+    @BindView(R.id.detail_description)
+    TextView description;
 
     public static final String TAG = "DetailActivity";
     public static final String EXTRA_URL = "extra_url";
@@ -129,7 +145,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
         description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = DescriptionActivity.newIntent(DetailActivity.this, film.getDescription());
+                Intent intent = DescriptionActivity.newIntent(DetailActivity.this, film.getReleaseInfo(), film.getDescription());
                 startActivity(intent);
             }
         });

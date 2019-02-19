@@ -1,0 +1,9 @@
+/.gradle
+/.idea
+/.mainframer
+/app/build
+/app/app.iml
+/Kinoman.iml
+/local.properties
+/gradle
+/mainframer

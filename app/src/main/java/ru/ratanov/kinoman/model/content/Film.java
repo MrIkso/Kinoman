@@ -24,6 +24,7 @@ public class Film {
     private String dateTitle;
     private String seeds;
     private String description;
+    private String releaseInfo;
     private String trailerUrl;
     private boolean isFavorite;
     private String KpUrl;
@@ -159,6 +160,14 @@ public class Film {
 
     public void setSeeds(String seeds) {
         this.seeds = seeds;
+    }
+
+    public String getReleaseInfo() {
+        return releaseInfo;
+    }
+
+    public void setReleaseInfo(String releaseInfo) {
+        this.releaseInfo = releaseInfo;
     }
 
     public String getDescription() {

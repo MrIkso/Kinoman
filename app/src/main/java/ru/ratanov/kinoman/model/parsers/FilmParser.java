@@ -266,6 +266,15 @@ public class FilmParser {
                 film.setDescription(doc.select("div.bx1.justify").select("p").text());
                 film.setSameLink(BASE_URL + doc.select("td.w90p").select("a").attr("href"));
 
+                String releaseInfoLink = link.replace("details.php?",
+                        "get_srv_details.php?pagesd=0&");
+
+                doc = Jsoup.connect(releaseInfoLink)
+                        .cookies(Cookies.getCookies())
+                        .get();
+
+                film.setReleaseInfo(doc.text());
+
                 return film;
             } catch (IOException e) {
                 e.printStackTrace();
