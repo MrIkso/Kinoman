@@ -49,7 +49,7 @@ public class ForceUpdateChecker {
         }
     }
 
-    private String getAppVersion(Context context) {
+    public static String getAppVersion(Context context) {
         String result = "";
 
         try {
