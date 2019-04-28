@@ -7,8 +7,9 @@ android {
         applicationId "ru.ratanov.kinoman"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 13
-        versionName "0.4.6"
+        versionCode 14
+        versionName "0.4.8"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -52,6 +53,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.android.support:multidex:1.0.3'
 }
 repositories {
     mavenCentral()

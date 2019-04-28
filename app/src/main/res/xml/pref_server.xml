@@ -20,10 +20,8 @@
             android:summary="%s"
             android:title="Торрент клиент"/>
         <ru.ratanov.kinoman.model.utils.EditTextPreference
-            android:inputType="numberDecimal"
-            android:digits="0123456789."
             android:key="server"
-            android:title="IP адрес"/>
+            android:title="Имя сервера (или IP)"/>
         <ru.ratanov.kinoman.model.utils.EditTextPreference
             android:inputType="number"
             android:key="port"

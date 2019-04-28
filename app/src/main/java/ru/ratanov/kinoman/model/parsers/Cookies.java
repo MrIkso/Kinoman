@@ -24,12 +24,12 @@ public class Cookies {
 
             try {
                 response = Jsoup
-                        .connect("https://kinozal.guru/login.php")
+                        .connect("http://kinozal.tv.http.s71.wbprx.com/login.php")
                         .method(Connection.Method.GET)
                         .execute();
 
                 response = Jsoup
-                        .connect("https://kinozal.guru/takelogin.php")
+                        .connect("http://kinozal.tv.http.s71.wbprx.com/takelogin.php")
                         .cookies(response.cookies())
                         .data("username", "rbaloo")
                         .data("password", "756530")

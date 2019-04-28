@@ -141,7 +141,7 @@ public class FilmParser {
                         String pictureUrl = null;
 
                         if (tmp.contains("poster")) {
-                            pictureUrl = "https://kinozal.guru" + tmp;
+                            pictureUrl = "http://kinozal.tv.http.s71.wbprx.com/" + tmp;
                         } else {
                             pictureUrl = tmp;
                         }
@@ -226,7 +226,7 @@ public class FilmParser {
                 String pictureUrl = null;
 
                 if (tmp.contains("poster")) {
-                    pictureUrl = "https://kinozal.guru" + tmp;
+                    pictureUrl = "http://kinozal.tv.http.s71.wbprx.com/" + tmp;
                 } else {
                     pictureUrl = tmp;
                 }
