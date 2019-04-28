@@ -1,6 +1,7 @@
 package ru.ratanov.kinoman
 
 import android.app.Application
+import android.support.multidex.MultiDexApplication
 import android.util.Log
 import com.downloader.PRDownloader
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -8,7 +9,7 @@ import ru.ratanov.kinoman.managers.firebase.FirebaseManager
 import ru.ratanov.kinoman.managers.firebase.ForceUpdateChecker
 import java.util.HashMap
 
-class App : Application() {
+class App : MultiDexApplication() {
 
     private val TAG = App::class.java.simpleName
 
