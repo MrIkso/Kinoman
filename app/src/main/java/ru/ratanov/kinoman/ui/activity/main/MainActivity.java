@@ -26,19 +26,14 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.ratanov.kinoman.R;
-import ru.ratanov.kinoman.managers.firebase.ForceUpdateChecker;
-import ru.ratanov.kinoman.managers.firebase.UpdateManager;
+import ru.ratanov.kinoman.model.base.Constants;
 import ru.ratanov.kinoman.model.query.FilterParams;
 import ru.ratanov.kinoman.model.utils.QueryPreferences;
 import ru.ratanov.kinoman.model.views.LabelledSpinner;
 import ru.ratanov.kinoman.ui.activity.base.BaseActivity;
 import ru.ratanov.kinoman.ui.fragment.main.TopFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends BaseActivity
-    implements ForceUpdateChecker.OnUpdateNeededListener{
+public class MainActivity extends BaseActivity {
 
     public static final String TAG = "MainActivity";
     private static TabLayout mTabs;
@@ -65,12 +60,6 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        ForceUpdateChecker.with(this).onUpdateNeeded(this).check();
-    }
-
-    @Override
-    public void onUpdateNeeded(String version, String releaseNotes, final String updateUrl) {
-        UpdateManager.INSTANCE.showUpdateDialog(this, version, releaseNotes, updateUrl);
     }
 
     // Add Fragments to Tabs
