@@ -5,7 +5,10 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
+
+import ru.ratanov.kinoman.model.base.Constants;
 
 public class Cookies {
 
@@ -24,22 +27,23 @@ public class Cookies {
 
             try {
                 response = Jsoup
-                        .connect("http://kinozal.tv.http.s71.wbprx.com/login.php")
+                        .connect(Constants.getBaseUrl() + "/login.php")
                         .method(Connection.Method.GET)
                         .execute();
 
                 response = Jsoup
-                        .connect("http://kinozal.tv.http.s71.wbprx.com/takelogin.php")
+                        .connect(Constants.getBaseUrl() + "/takelogin.php")
                         .cookies(response.cookies())
                         .data("username", "rbaloo")
                         .data("password", "756530")
                         .method(Connection.Method.POST)
                         .followRedirects(true)
                         .execute();
+                return response.cookies();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            return response.cookies();
+          return new HashMap<>();
         }
 }

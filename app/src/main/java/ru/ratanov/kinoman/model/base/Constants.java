@@ -6,9 +6,21 @@ package ru.ratanov.kinoman.model.base;
 
 public class Constants {
 
-    public static final String BASE_URL = "http://kinozal.tv.http.s71.wbprx.com";
-    public static final String BASE_URL_TOP = "http://kinozal.tv.http.s71.wbprx.com/top.php";
-    public static final String BASE_URL_SEARCH = "http://kinozal.tv.http.s71.wbprx.com/browse.php";
-    public static final String KINOPOISK_URL = "https://www.kinopoisk.ru";
+    private static String BASE_URL = "http://kinozal.tv";
 
+    public static void setBaseUrl(String url){
+        BASE_URL = url;
+    }
+
+    public static String getBaseUrl(){
+        return BASE_URL;
+    }
+
+    public static String geUrlTop(){
+        return  getBaseUrl() + "/top.php";
+    }
+
+    public static String geUrlSearch(){
+        return getBaseUrl() + "/browse.php";
+    }
 }

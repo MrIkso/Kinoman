@@ -12,4 +12,8 @@
         android:positiveButtonText="@null"
         android:title="@string/number_of_spans_title"/>
 
+    <ru.ratanov.kinoman.model.utils.EditTextPreference
+        android:key="kinozal_url"
+        android:title="Зеркало Kinozal.tv"/>
+
 </PreferenceScreen>

@@ -14,13 +14,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.ratanov.kinoman.model.base.Constants;
 import ru.ratanov.kinoman.model.content.SearchItem;
 import ru.ratanov.kinoman.model.parsers.Cookies;
 import ru.ratanov.kinoman.model.utils.QueryPreferences;
 import ru.ratanov.kinoman.presentation.presenter.search.SearchPresenter;
-
-import static ru.ratanov.kinoman.model.base.Constants.BASE_URL;
-import static ru.ratanov.kinoman.model.base.Constants.BASE_URL_SEARCH;
 
 public class SearchAPI {
 
@@ -49,7 +47,7 @@ public class SearchAPI {
             String query = strings[0];
             int pages = 0;
 
-            String url = Uri.parse(BASE_URL_SEARCH)
+            String url = Uri.parse(Constants.geUrlSearch())
                     .buildUpon()
                     .appendQueryParameter("s", query)
                     .appendQueryParameter("t", filter)
@@ -77,7 +75,7 @@ public class SearchAPI {
                 }
 
                 for (int i = 0; i < pages; i++) {
-                    String pageUrl = Uri.parse(BASE_URL_SEARCH)
+                    String pageUrl = Uri.parse(Constants.geUrlSearch())
                             .buildUpon()
                             .appendQueryParameter("s", query)
                             .appendQueryParameter("t", filter)
@@ -94,7 +92,7 @@ public class SearchAPI {
 
                     for (Element element : sElements) {
                         String title = element.select("td.nam").select("a").text();
-                        String link = BASE_URL + element.select("td.nam").select("a").attr("href");
+                        String link = Constants.getBaseUrl() + element.select("td.nam").select("a").attr("href");
                         String size = element.select("td.s").get(1).text();
                         String seeds = element.select("td.sl_s").text();
                         String date = element.select("td.s").get(2).text();

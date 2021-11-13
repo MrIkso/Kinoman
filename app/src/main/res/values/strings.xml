@@ -165,5 +165,5 @@
     <string name="regular_search_title">Стандартный поиск</string>
     <string name="i_search_description">Из множества однотипных раздач (разные форматы, сезоны и т.д. выдается только одна - самая популярная, по количеству сидов.\nБыстрый поиск</string>
     <string name="regular_search_description">Стандартная поисковая выдача как на сайте. Все форматы и сезоны.\nБолее медленный поиск.</string>
-
+    <string name="kinozal_url_title">Адрес сайта Kinozal.tv</string>
 </resources>

@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import ru.ratanov.kinoman.model.base.Constants;
 import ru.ratanov.kinoman.model.content.Film;
 import ru.ratanov.kinoman.model.content.SameItem;
 import ru.ratanov.kinoman.model.content.TopItem;
@@ -25,9 +26,6 @@ import ru.ratanov.kinoman.model.utils.QueryPreferences;
 import ru.ratanov.kinoman.presentation.presenter.detail.DetailPresenter;
 import ru.ratanov.kinoman.presentation.presenter.detail.SamePresenter;
 import ru.ratanov.kinoman.presentation.presenter.main.TopPresenter;
-
-import static ru.ratanov.kinoman.model.base.Constants.BASE_URL;
-import static ru.ratanov.kinoman.model.base.Constants.BASE_URL_TOP;
 
 /**
  * Created by ACER on 27.11.2016.
@@ -113,7 +111,7 @@ public class FilmParser {
             System.out.println(category_pref_key + " = " + category);
 
             List<TopItem> items = new ArrayList<>();
-            String url = Uri.parse(BASE_URL_TOP)
+            String url = Uri.parse(Constants.geUrlTop())
                     .buildUpon()
                     .appendQueryParameter("t", category)
                     .appendQueryParameter("d", year)
@@ -134,14 +132,14 @@ public class FilmParser {
                 if (doc != null) {
                     Elements elements = doc.select("div.bx1").select("a");
                     for (Element entry : elements) {
-                        String link = BASE_URL + entry.select("a").attr("href");
+                        String link = Constants.getBaseUrl() + entry.select("a").attr("href");
                         String title = entry.select("a").attr("title");
                         String tmp = entry.select("a").select("img").attr("src");
 
                         String pictureUrl = null;
 
                         if (tmp.contains("poster")) {
-                            pictureUrl = "http://kinozal.tv.http.s71.wbprx.com/" + tmp;
+                            pictureUrl = Constants.getBaseUrl() + "/" + tmp;
                         } else {
                             pictureUrl = tmp;
                         }
@@ -226,7 +224,7 @@ public class FilmParser {
                 String pictureUrl = null;
 
                 if (tmp.contains("poster")) {
-                    pictureUrl = "http://kinozal.tv.http.s71.wbprx.com/" + tmp;
+                    pictureUrl = Constants.getBaseUrl() + "/" + tmp;
                 } else {
                     pictureUrl = tmp;
                 }
@@ -264,7 +262,7 @@ public class FilmParser {
                 }
 
                 film.setDescription(doc.select("div.bx1.justify").select("p").text());
-                film.setSameLink(BASE_URL + doc.select("td.w90p").select("a").attr("href"));
+                film.setSameLink(Constants.getBaseUrl() + doc.select("td.w90p").select("a").attr("href"));
 
                 return film;
             } catch (IOException e) {
@@ -384,7 +382,7 @@ public class FilmParser {
                     sameItem.setSize(row.select("td").get(3).text());
                     sameItem.setSeeds(row.select("td").get(4).text());
                     sameItem.setDate(row.select("td").get(6).text());
-                    sameItem.setPageUrl(BASE_URL + row.select("td.nam").select("a").attr("href"));
+                    sameItem.setPageUrl(Constants.getBaseUrl() + row.select("td.nam").select("a").attr("href"));
 
                     items.add(sameItem);
                 }

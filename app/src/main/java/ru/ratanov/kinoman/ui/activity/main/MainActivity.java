@@ -1,19 +1,16 @@
 package ru.ratanov.kinoman.ui.activity.main;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,16 +45,23 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        // Setting ViewPager for each Tabs
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setOffscreenPageLimit(2);
-        setupViewPager(viewPager);
-        // Set Tabs inside Toolbar
-        mTabs = (TabLayout) findViewById(R.id.tabs);
-        mTabs.setupWithViewPager(viewPager);
-        // Setup ToolBar
-        setupToolBar();
-        setupSearchView();
+        if (QueryPreferences.getStoredBoolean(this, QueryPreferences.PREF_SHOW_SET_URL)) {
+            showSetKinozalMirror();
+        }
+        else {
+            Constants.setBaseUrl(QueryPreferences.getStoredQuery(this, QueryPreferences.PREF_KINOZAL_URL, Constants.getBaseUrl()));
+
+            // Setting ViewPager for each Tabs
+            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+            viewPager.setOffscreenPageLimit(2);
+            setupViewPager(viewPager);
+            // Set Tabs inside Toolbar
+            mTabs = (TabLayout) findViewById(R.id.tabs);
+            mTabs.setupWithViewPager(viewPager);
+            // Setup ToolBar
+            setupToolBar();
+            setupSearchView();
+        }
         // Init Realm
     }
 
@@ -81,6 +89,53 @@ public class MainActivity extends BaseActivity {
         viewPager.setAdapter(mAdapter);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.filter_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_filter) {
+            new FilterDialogFragment().show(getSupportFragmentManager(), "filter");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showSetKinozalMirror() {
+        EditText editText = new EditText(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        editText.setLayoutParams(layoutParams);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.kinozal_url_title)
+                .setView(editText)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String url = editText.getText().toString();
+                        if (!TextUtils.isEmpty(url)) {
+                            if (url.startsWith("http://") | url.startsWith("https://")) {
+                                if (url.endsWith("/")) {
+                                    url = url.substring(0, url.length() - 1);
+                                }
+                                QueryPreferences.setStoredBoolean(MainActivity.this, QueryPreferences.PREF_SHOW_SET_URL, false);
+                                QueryPreferences.setStoredQuery(MainActivity.this, QueryPreferences.PREF_KINOZAL_URL, url);
+
+                                recreate();
+                            }
+                        }
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .show();
+    }
 
     // Adapter for ViewPager
     static class Adapter extends FragmentPagerAdapter {
@@ -112,32 +167,20 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.filter_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_filter) {
-            new FilterDialogFragment().show(getSupportFragmentManager(), "filter");
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
     public static class FilterDialogFragment extends BottomSheetDialogFragment {
 
-        @BindView(R.id.category_spinner) LabelledSpinner mCategorySpinner;
-        @BindView(R.id.year_spinner) LabelledSpinner mYearSpinner;
-        @BindView(R.id.country_spinner) LabelledSpinner mCountrySpinner;
-        @BindView(R.id.format_spinner) LabelledSpinner mFormatSpinner;
-        @BindView(R.id.added_spinner) LabelledSpinner mAddedSpinner;
-        @BindView(R.id.sort_spinner) LabelledSpinner mSortSpinner;
+        @BindView(R.id.category_spinner)
+        LabelledSpinner mCategorySpinner;
+        @BindView(R.id.year_spinner)
+        LabelledSpinner mYearSpinner;
+        @BindView(R.id.country_spinner)
+        LabelledSpinner mCountrySpinner;
+        @BindView(R.id.format_spinner)
+        LabelledSpinner mFormatSpinner;
+        @BindView(R.id.added_spinner)
+        LabelledSpinner mAddedSpinner;
+        @BindView(R.id.sort_spinner)
+        LabelledSpinner mSortSpinner;
 
         private String mCategory;
         private String mYear;
@@ -247,6 +290,5 @@ public class MainActivity extends BaseActivity {
         }
 
     }
-
 
 }

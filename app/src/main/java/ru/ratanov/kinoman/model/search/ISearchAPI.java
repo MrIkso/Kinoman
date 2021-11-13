@@ -17,12 +17,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import ru.ratanov.kinoman.model.base.Constants;
 import ru.ratanov.kinoman.model.content.ISearchItem;
 import ru.ratanov.kinoman.model.parsers.Cookies;
 import ru.ratanov.kinoman.presentation.presenter.search.SearchPresenter;
-
-import static ru.ratanov.kinoman.model.base.Constants.BASE_URL;
-import static ru.ratanov.kinoman.model.base.Constants.BASE_URL_SEARCH;
 
 public class ISearchAPI {
     public static final String TAG = "ISearchAPI";
@@ -50,7 +48,7 @@ public class ISearchAPI {
 
             LinkedHashMap<String, String> linksMap = new LinkedHashMap<>();
 
-            String url = Uri.parse(BASE_URL_SEARCH)
+            String url = Uri.parse(Constants.geUrlSearch())
                     .buildUpon()
                     .appendQueryParameter("s", strings[0])
                     .appendQueryParameter("t", "1")
@@ -73,7 +71,7 @@ public class ISearchAPI {
                     } else {
                         title = fullTitle;
                     }
-                    String link = BASE_URL + element.select("td.nam").select("a").attr("href");
+                    String link = Constants.getBaseUrl() + element.select("td.nam").select("a").attr("href");
 
                     if (ISearchItem.isValid(category) && !linksMap.containsKey(title)) {
                         linksMap.put(title, link);
@@ -117,7 +115,7 @@ public class ISearchAPI {
                     String pictureUrl = null;
 
                     if (tmp.contains("poster")) {
-                        pictureUrl = "https://kinozal.guru" + tmp;
+                        pictureUrl = Constants.getBaseUrl() + "/" + tmp;
                     } else {
                         pictureUrl = tmp;
                     }
